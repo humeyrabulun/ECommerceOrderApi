@@ -18,10 +18,13 @@ namespace ECommerceOrderApi.Controllers
 
         [HttpGet]
         public async Task <IActionResult> GetAll()
+
         {
             var products = await _productService.GetAllProductAsync();
             return Ok(products);
         }
+
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
