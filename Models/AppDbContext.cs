@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
+using System.Reflection;
 namespace ECommerceOrderApi.Models
 {
     public class AppDbContext:  DbContext
@@ -8,6 +9,20 @@ namespace ECommerceOrderApi.Models
         {
         }
             public DbSet<Product> Products { get; set; }
-        
+            public DbSet <Category>Categories { get; set; }
+
+            public DbSet <Tag> Tags { get; set; }
+
+            public DbSet<ProductTag> ProductTags { get; set; }
+
+            public DbSet<Review> Reviews { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        }
+
+
     }
 }

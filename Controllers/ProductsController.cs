@@ -19,7 +19,7 @@ namespace ECommerceOrderApi.Controllers
         [HttpGet]
         public async Task <IActionResult> GetAll()
 
-        {
+        {    
             var products = await _productService.GetAllProductAsync();
             return Ok(products);
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ECommerceOrderApi.Models;
+using ECommerceOrderApi.DTOs;
 
 namespace ECommerceOrderApi.Services
 {
@@ -12,9 +13,19 @@ namespace ECommerceOrderApi.Services
             _context = context;
         }
 
-        public async Task<List<Product>> GetAllProductAsync()
+        public async Task<List<ProductListDto>> GetAllProductAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+
+            .Select(p => new ProductListDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                CategoryName = p.Category.Name
+            })
+            .Take(50)
+            .ToListAsync();
         }
 
         public async Task<Product> GetProductByIdAsync(int id)
